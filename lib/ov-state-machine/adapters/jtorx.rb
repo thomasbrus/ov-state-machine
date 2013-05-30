@@ -11,7 +11,9 @@ module OVStateMachine
 
       def run
         while event = @input.gets.chomp
+          # TODO: Als false, dan foutmelding
           @state_machine.fire_state_event(event)
+
           @state_machine.state_events.each do |event|
             @output.puts event
           end
