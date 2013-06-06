@@ -16,22 +16,23 @@ module OVStateMachine
       end
 
       def parse_show(*args)
-        args.zip([Card, Carrier, Location]).map { |id, klass| klass.new(id.to_i) }
+        [Card, Carrier, Location].zip(args).map { |klass, id| klass.new(id.to_i) }
       end
 
       def handle_show(card, carrier, location)
-        if carrier.tls?
+        method = if carrier.tls?
           card.check_over(location)
-          # TODO: Report either check in or check out.
-          reporter.report_failure(card.id, card.balance)
+          :report_check_in
         elsif card.checked_in?
           card.check_out(carrier, location)
-          reporter.report_check_out(card.id, card.balance)
-        else
+          :report_check_out
+        elsif card.checked_out?
           card.check_in(carrier, location)
-          reporter.report_check_in(card.id, card.balance)
+          :report_check_in
         end
-      rescue Card::InsufficientFundsError, Card::InvalidCarrierError
+
+        reporter.send(method, card.id, card.balance)
+      rescue Card::InvalidAction
         reporter.report_failure(card.id, card.balance)
       end
 

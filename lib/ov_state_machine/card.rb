@@ -5,8 +5,7 @@ module OVStateMachine
     include Multiton
     extend Enumerable
 
-    InsufficientFundsError = Class.new(StandardError)
-    InvalidCarrierError = Class.new(StandardError)
+    InvalidAction = Class.new(StandardError)
 
     attr_reader :id, :balance
 
@@ -29,16 +28,19 @@ module OVStateMachine
     end
 
     def check_in(carrier, location)
-      raise InsufficientFundsError if @balance <= 0
+      raise InvalidAction, "The balance of the card is insufficient." if @balance <= 0
       @last_location, @last_carrier = location, carrier
     end
 
     def check_over(location)
-      @last_location = location
+      raise InvalidAction, "Cannot check over when not checked in." unless checked_in?
+      # raise InvalidAction if location == @last_location
+      # check_out(@last_carrier, location)
+      # check_in(@last_carrier, location)
     end
 
     def check_out(carrier, location)
-      raise InvalidCarrierError unless carrier == @last_carrier
+      raise InvalidAction, "Cannot check out at this carrier." unless carrier == @last_carrier
       @balance -= Carrier.calculate_price(@last_location, location)
       @last_location, @last_carrier = nil
     end

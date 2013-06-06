@@ -2,7 +2,6 @@ module OVStateMachine
   class Reporter
     def initialize(output = $stdout)
       @output = output
-      @output.sync = true
     end
 
     def action_name
@@ -11,7 +10,7 @@ module OVStateMachine
 
     def report(*args)
       @output.puts(encode(action_name, *args))
-      # @output.flush
+      @output.flush
     end
 
     private
