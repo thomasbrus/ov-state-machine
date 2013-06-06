@@ -1,3 +1,8 @@
-module OVStateMachine
-  VERSION = 0.0.1
-end
+require_relative 'ov-state-machine/adapter'
+require_relative 'ov-state-machine/adapters/jtorx'
+require_relative 'ov-state-machine/card'
+require_relative 'ov-state-machine/carrier'
+require_relative 'ov-state-machine/location'
+require_relative 'ov-state-machine/reporter'
+require_relative 'ov-state-machine/reporters/reader_status'
+require_relative 'ov-state-machine/web/app'
