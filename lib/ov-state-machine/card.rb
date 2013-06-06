@@ -6,13 +6,14 @@ module OVStateMachine
     extend Enumerable
 
     InsufficientFundsError = Class.new(StandardError)
+    InvalidCarrierError = Class.new(StandardError)
 
     attr_reader :id
 
     def initialize(id)
       @id = id
       @balance = 5.00
-      @last_location = nil
+      @last_location, @last_carrier = nil
     end
 
     def self.each
@@ -24,12 +25,12 @@ module OVStateMachine
     end
 
     def checked_out?
-      @last_location.nil?
+      @last_location.nil? && @last_carrier.nil?
     end
 
     def check_in(carrier, location)
       raise InsufficientFundsError if @balance <= 0
-      @last_location = location
+      @last_location, @last_carrier = location, carrier
     end
 
     def check_over(location)
@@ -37,8 +38,9 @@ module OVStateMachine
     end
 
     def check_out(carrier, location)
+      raise InvalidCarrierError unless carrier == @last_carrier
       @balance -= carrier.calculate_price(@last_location, location)
-      @last_location = nil
+      @last_location, @last_carrier = nil
     end
 
     def balance
