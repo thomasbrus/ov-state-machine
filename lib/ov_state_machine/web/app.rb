@@ -9,11 +9,11 @@ module OVStateMachine
         set :views, File.dirname(__FILE__) + '/assets'
         
         get "/javascripts/*.js" do
-          coffee "javascripts/#{params[:splat].first}".to_sym
+          coffee "/javascripts/#{params[:splat].first}".to_sym
         end
 
         get '/stylesheets/*.css' do
-          sass "stylesheets/#{params[:splat].first}".to_sym
+          sass "/stylesheets/#{params[:splat].first}".to_sym
         end
       end
 

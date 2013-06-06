@@ -7,7 +7,7 @@ DIVERGENCE false
 GUIDEKIND 
 GUIDETEXT 
 IMPLKIND MODEL
-IMPLTEXT /Users/thomasbrus/Code/ov-state-machine/bin/ov-state-machine
+IMPLTEXT /Users/thomasbrus/Code/ov_state_machine/bin/ov_state_machine
 INSTIMPLTEXT 
 INSTMODELTEXT 
 INTERPINPUTS show

@@ -1,2 +1,2 @@
 web: bundle exec rackup --server thin
-app: ./bin/ov-state-machine
+app: ./bin/ov_state_machine
