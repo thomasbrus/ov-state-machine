@@ -7,14 +7,14 @@ DIVERGENCE false
 GUIDEKIND 
 GUIDETEXT 
 IMPLKIND MODEL
-IMPLTEXT /Users/thomasbrus/Code/ov_state_machine/bin/ov_state_machine
+IMPLTEXT ./bin/ov_state_machine
 INSTIMPLTEXT 
 INSTMODELTEXT 
 INTERPINPUTS show
 INTERPKIND ACTIONLIST
 INTERPOUTPUTS reader_status
 MODELKIND MODEL
-MODELTEXT /Users/thomasbrus/Code/verification-engineering/traveller.aut
+MODELTEXT ./lts/traveller.aut
 RECONDELTA false
 SEED 2070402019
 SIMSEED 2070402019
