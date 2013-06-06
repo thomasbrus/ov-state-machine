@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/ov-state-machine'
+OVStateMachine::Adapters::JTorX.new.run
