@@ -10,12 +10,12 @@ module OVStateMachine
         
         get "/javascripts/*.js" do
           coffee params[:splat].first.to_sym
-        end  
+        end
       end
     end
 
     module Engines
-      class SassEngine < Sinatra::Base  
+      class SassEngine < Sinatra::Base
         set :views, File.dirname(__FILE__) + '/assets/stylesheets'
         
         get '/stylesheets/*.css' do
