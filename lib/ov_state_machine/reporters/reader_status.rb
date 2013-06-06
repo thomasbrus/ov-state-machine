@@ -10,15 +10,15 @@ module OVStateMachine
       end
 
       def report_check_in(card_id, balance)
-        report(card_id, SUCCESSFUL_CHECKIN, balance)
+        report(card_id, SUCCESSFUL_CHECKIN, balance.to_i)
       end
 
       def report_check_out(card_id, balance)
-        report(card_id, SUCCESSFUL_CHECKOUT, balance)
+        report(card_id, SUCCESSFUL_CHECKOUT, balance.to_i)
       end
 
       def report_failure(card_id, balance)
-        report(card_id, UNSUCCESFUL_ACTION, balance)
+        report(card_id, UNSUCCESFUL_ACTION, balance.to_i)
       end
     end
   end

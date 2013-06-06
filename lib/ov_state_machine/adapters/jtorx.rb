@@ -31,7 +31,7 @@ module OVStateMachine
           card.check_in(carrier, location)
           reporter.report_check_in(card.id, card.balance)
         end
-      rescue Card::InsufficientFundsError, InvalidCarrierError
+      rescue Card::InsufficientFundsError, Card::InvalidCarrierError
         reporter.report_failure(card.id, card.balance)
       end
 

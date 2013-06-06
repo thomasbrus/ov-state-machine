@@ -8,7 +8,7 @@ module OVStateMachine
     InsufficientFundsError = Class.new(StandardError)
     InvalidCarrierError = Class.new(StandardError)
 
-    attr_reader :id
+    attr_reader :id, :balance
 
     def initialize(id)
       @id = id
@@ -39,12 +39,8 @@ module OVStateMachine
 
     def check_out(carrier, location)
       raise InvalidCarrierError unless carrier == @last_carrier
-      @balance -= carrier.calculate_price(@last_location, location)
+      @balance -= Carrier.calculate_price(@last_location, location)
       @last_location, @last_carrier = nil
-    end
-
-    def balance
-      @balance.to_i
     end
   end
 end
