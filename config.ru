@@ -1,2 +1,2 @@
-require_relative 'lib/ov-state-machine'
+require './lib/ov-state-machine'
 run OVStateMachine::Web::App
