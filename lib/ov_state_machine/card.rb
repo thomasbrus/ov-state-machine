@@ -35,13 +35,19 @@ module OVStateMachine
     def check_over(location)
       raise InvalidAction, "Cannot check over when not checked in." unless checked_in?
       # raise InvalidAction if location == @last_location
-      # check_out(@last_carrier, location)
-      # check_in(@last_carrier, location)
+      check_out(@last_carrier, location)
+      check_in(Carrier.new(0), location)
     end
 
     def check_out(carrier, location)
-      raise InvalidAction, "Cannot check out at this carrier." unless carrier == @last_carrier
-      @balance -= Carrier.calculate_price(@last_location, location)
+      unless carrier == @last_carrier || @last_carrier.tls?
+        raise InvalidAction, "Cannot check out at this carrier."  
+      end
+
+      unless location == @last_location
+        @balance -= Carrier.calculate_price(@last_location, location)
+      end
+
       @last_location, @last_carrier = nil
     end
   end
