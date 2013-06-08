@@ -34,7 +34,11 @@ module OVStateMachine
 
     def check_over(location)
       raise InvalidAction, "Cannot check over when not checked in." unless checked_in?
-      raise InvalidAction if location == @last_location
+      
+      if location == @last_location && @last_carrier.tls?
+        raise InvalidAction, "Cannot check over twice at the same location."
+      end
+
       check_out(@last_carrier, location)
       check_in(Carrier.new(0), location)
     end
