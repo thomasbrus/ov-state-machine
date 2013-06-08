@@ -13,8 +13,8 @@ module OVStateMachine
     private_constant :PRICE_TABLE
 
     def calculate_price
-      return 0 if origin == destination
-      
+      return 0.00 if origin == destination
+
       PRICE_TABLE.fetch(Set[origin.id, destination.id]) do
         raise PriceUnknown, "Cannot calculate price."
       end

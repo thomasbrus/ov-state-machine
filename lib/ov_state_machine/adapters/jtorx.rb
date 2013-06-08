@@ -20,7 +20,7 @@ module OVStateMachine
       end
 
       def handle_show(card, carrier, location)
-        if carrier.tls?
+        if carrier == Carrier::TLS
           card.check_over(location)
           reporter.report_check_in(card.id, card.balance)
         elsif card.checked_in?
