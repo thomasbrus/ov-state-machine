@@ -12,7 +12,7 @@ module OVStateMachine
       private
 
       def decode(line)
-        line.split('!').map(&:strip)
+        line.strip.split('!').map(&:strip)
       end
 
       def parse_show(*args)
