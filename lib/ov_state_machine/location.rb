@@ -1,12 +1,7 @@
 require 'facets/multiton'
 
 module OVStateMachine
-  class Location
+  class Location < Struct.new(:id)
     include Multiton
-    attr_reader :id
-
-    def initialize(id)
-      @id = id
-    end
   end
 end

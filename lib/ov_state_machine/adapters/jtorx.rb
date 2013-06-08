@@ -23,10 +23,12 @@ module OVStateMachine
         if carrier.tls?
           card.check_over(location)
           reporter.report_check_in(card.id, card.balance)
+        elsif card.checked_in?
+          card.check_out(carrier, location)
+          reporter.report_check_out(card.id, card.balance)
         else
-          method = (card.checked_in? ? :check_out : :check_in)
-          card.send(method, carrier, location)
-          reporter.send("report_#{method}", card.id, card.balance)
+          card.check_in(carrier, location)
+          reporter.report_check_in(card.id, card.balance)
         end
       rescue Card::InvalidAction
         reporter.report_failure(card.id, card.balance)

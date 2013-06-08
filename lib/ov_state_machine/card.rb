@@ -3,8 +3,6 @@ require 'facets/multiton'
 module OVStateMachine
   class Card
     include Multiton
-    extend Enumerable
-
     InvalidAction = Class.new(StandardError)
 
     attr_reader :id, :balance
@@ -13,10 +11,6 @@ module OVStateMachine
       @id = id
       @balance = 5.00
       @last_location, @last_carrier = nil
-    end
-
-    def self.each
-      @multiton_instance.values
     end
 
     def checked_in?
@@ -39,10 +33,8 @@ module OVStateMachine
         raise InvalidAction, "Cannot check over twice at the same location."
       end
 
-      check_out(@last_carrier, location)
-      
-      tls = Carrier.new(0)
-      check_in(tls, location)
+      check_out(@last_carrier, location)    
+      check_in(Carrier::TLS, location)
     end
 
     def check_out(carrier, location)
@@ -50,10 +42,7 @@ module OVStateMachine
         raise InvalidAction, "Cannot check out at this carrier."  
       end
 
-      unless location == @last_location
-        @balance -= Carrier.calculate_price(@last_location, location)
-      end
-
+      @balance -= Journey.new(@last_location, location).calculate_price
       @last_location, @last_carrier = nil
     end
   end
