@@ -40,7 +40,9 @@ module OVStateMachine
       end
 
       check_out(@last_carrier, location)
-      check_in(Carrier.new(0), location)
+      
+      tls = Carrier.new(0)
+      check_in(tls, location)
     end
 
     def check_out(carrier, location)
