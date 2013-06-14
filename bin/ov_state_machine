@@ -1,6 +1,0 @@
-#!/usr/bin/env ruby
-
-require_relative '../lib/ov_state_machine'
-
-trap('INT') { Kernel.exit(0) }
-OVStateMachine::Adapters::JTorX.new.run

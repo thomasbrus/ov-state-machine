@@ -1,0 +1,3 @@
+source "https://rubygems.org"
+
+gem 'ov_state_machine-core', '0.0.1', path: '../core'
