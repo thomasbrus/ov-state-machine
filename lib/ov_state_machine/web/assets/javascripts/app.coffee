@@ -1,4 +1,5 @@
 $ ->
+  pubsub = new Faye.Client('http://localhost:9191/pubsub')  
   transit_card = new TransitCard($('#transit_card'))
 
   locations = [
@@ -10,14 +11,17 @@ $ ->
   locations[1].showPopover('normal')
   $('#legend, #transit_card').hide().fadeIn()
 
+  # TODO: Improve this
   $.each locations, (_, location) ->
     this.$marker.mouseenter ->
-      $.each locations, ->
-        unless this == location
-          this.hidePopover()
+      $.each locations, ->        
+        this.hidePopover() unless this == location
 
-  # setTimeout (=>
-  #   transit_card.animateBalance(-2.00)
-  #   transit_card.animateLastCheckedIn('Enschede-Drienerlo')
-  #   transit_card.animateCurrentCarrier('NS')
-  # ), 1000
+  pubsub.subscribe '/callbacks', (data) ->
+    if data.succesful
+      transit_card.animateCheckedInAt(data.checked_in_at)
+      transit_card.animateCurrentCarrier(data.current_carrier)
+      transit_card.animateBalance(data.balance)
+
+    # Indicate status ...
+

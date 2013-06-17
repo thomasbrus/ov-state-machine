@@ -29,18 +29,18 @@ class @TransitCard
         step: (value) => @setBalance(value)
       }
 
-  setLastCheckedIn: (location) ->
+  setCheckedInAt: (location) ->
     @$lastCheckedIn.text(location)
   
-  getLastCheckedIn: ->
+  getCheckedInAt: ->
     location = @$lastCheckedIn.text()
   
-  animateLastCheckedIn: (location) ->
-    return if location == @getLastCheckedIn()
+  animateCheckedInAt: (location) ->
+    return if location == @getCheckedInAt()
 
     @$lastCheckedIn.addClass('flipped')
     setTimeout (=>
-      @setLastCheckedIn(location)  
+      @setCheckedInAt(location)  
       @$lastCheckedIn.removeClass('flipped')
     ), FLIP_DURATION
   
