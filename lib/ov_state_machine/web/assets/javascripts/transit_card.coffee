@@ -2,13 +2,22 @@ class @TransitCard
   DIGIT_ANIMATION_OPTIONS = duration: 500, easing: 'swing'
   FLIP_DURATION = 250
 
-  constructor: (@$elem) ->
+  constructor: (@$elem, @pubsub) ->
     @$digits = @$elem.find('.balance > span')
     @$lastCheckedIn = @$elem.find('.checked-in-at > p')
     @$currentCarrier = @$elem.find('.current-carrier > p')
 
     $.each [@$lastCheckedIn, @$currentCarrier], ->
       $(this).css transition: "#{FLIP_DURATION / 1000}s"
+
+    @pubsub.subscribe '/callbacks/check_in', (data) ->
+      transit_card.animateCheckedInAt(data.checked_in_at)
+      transit_card.animateCurrentCarrier(data.current_carrier)
+
+    @pubsub.subscribe '/callbacks/check_out', (data) ->
+      transit_card.animateCheckedInAt('—')
+      transit_card.animateCurrentCarrier('—')
+      transit_card.animateBalance(data.balance)
 
   setBalance: (balance) ->
     formattedBalance = parseFloat(balance).toFixed(2)

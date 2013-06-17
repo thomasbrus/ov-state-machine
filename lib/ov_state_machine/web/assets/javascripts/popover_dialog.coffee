@@ -5,51 +5,37 @@ class @PopoverDialog
     check_in: AudioFX('/sounds/succesful-check-in.mp3')
     check_out: AudioFX('/sounds/succesful-check-out.mp3')
 
-  constructor: (@$elem, @location, @transit_card)->
+  constructor: (@$elem, @location, @transit_card, @pubsub)->
     @$scanCardButton = @$elem.find('.button-scan-card')
     @$checkOverButton = @$elem.find('.button-check-over')
+    @$selectedCarrier = @$elem.find('select[name=carrier]')
 
     @$scanCardButton.click => @scanCard()
     @$checkOverButton.click => @checkOver()
 
-    $.each [@$scanCardButton, @$checkOverButton], (_, elem) =>
-      $(elem).click =>
-        setTimeout((=>
-          $(elem).removeClass('active')
-          # @$elem.hide()
-        ), BUTTON_ACTIVE_TIMEOUT)
+    new DelayedButton(@$scanCardButton)
+    new DelayedButton(@$checkOverButton)
 
-        $(elem).addClass('active')
+    @pubsub.subscribe '/callbacks/check_in', (data) ->
+      SOUNDS.check_in.play()
+
+    @pubsub.subscribe '/callbacks/check_out', (data) ->
+      SOUNDS.check_out.play()
+
+    @pubsub.subscribe '/callbacks/failure', (data) ->
+      SOUNDS.failure.play()
   
   scanCard: ->
     return false unless @$scanCardButton
-    console.log 'Scanning card...'
-
-    # For test purposes only...
-    switch @location.getId()
-      when 50
-        @transit_card.animateCheckedInAt(@location.getName())
-        @transit_card.animateCurrentCarrier('Syntus')
-        SOUNDS.check_in.play()
-      when 51
-        # @transit_card.animateCheckedInAt('—')
-        # @transit_card.animateCurrentCarrier('—')
-        # @transit_card.animateBalance('3.75')
-        SOUNDS.failure.play()
-      when 52
-        @transit_card.animateCheckedInAt('—')
-        @transit_card.animateCurrentCarrier('—')
-        @transit_card.animateBalance(@transit_card.getBalance() - 1.75)
-        SOUNDS.check_out.play()
+    @pubsub.publish '/events/scan_card', {
+      card_id: @transit_card.getId(),
+      carrier_id: @$selectedCarrier.val(),
+      location_id: @location.getId()
+    }
     
   checkOver: ->
     return false unless @$checkOverButton
-    console.log 'Checking over...'
-
-    # For test purposes only...
-    switch @location.getId()
-      when 51
-        @transit_card.animateCheckedInAt('Hengelo')
-        @transit_card.animateCurrentCarrier('TLS')
-        @transit_card.animateBalance(@transit_card.getBalance() - 1.45)
-        SOUNDS.check_in.play()
+    @pubsub.publish '/events/check_over', {
+      card_id: @transit_card.getId(),
+      location_id: @location.getId()
+    }
