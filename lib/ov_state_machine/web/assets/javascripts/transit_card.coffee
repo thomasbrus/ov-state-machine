@@ -19,6 +19,9 @@ class @TransitCard
       transit_card.animateCurrentCarrier('—')
       transit_card.animateBalance(data.balance)
 
+  getId: ->
+    @$elem.data('card-id')
+
   setBalance: (balance) ->
     formattedBalance = parseFloat(balance).toFixed(2)
 

@@ -1,2 +1,2 @@
-pubsub: rackup pubsub.ru -s thin -E production -p 9191
-web: rackup web.ru -p 9292
+pubsub: puma pubsub.ru --port 9191
+web: rackup web.ru --port 9292
