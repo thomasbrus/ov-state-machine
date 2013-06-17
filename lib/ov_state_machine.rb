@@ -1,0 +1,5 @@
+require_relative 'ov_state_machine/card'
+require_relative 'ov_state_machine/carrier'
+require_relative 'ov_state_machine/journey'
+require_relative 'ov_state_machine/location'
+require_relative 'ov_state_machine/web'

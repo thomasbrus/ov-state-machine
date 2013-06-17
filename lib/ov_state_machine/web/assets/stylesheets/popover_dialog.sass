@@ -1,0 +1,70 @@
+.popover-dialog
+  background-repeat: no-repeat
+  background-position: center bottom
+  padding: 30px
+  display: none
+  z-index: 3
+
+  select
+    width: 170px
+    margin: 0 5px 15px 5px
+
+  hr
+    background: url(/images/divider.png) no-repeat center center
+    width: 180px
+    height: 35px
+    margin: 0
+    border: none
+
+  .button-scan-card, .button-check-over
+    width: 180px
+    height: 40px
+    text-shadow: 0 1px 2px #000
+    font-size: 18px
+    color: #fff
+    font-weight: bold
+    line-height: 40px
+    text-align: center
+    background-position: center center
+    background-repeat: no-repeat
+    -webkit-touch-callout: none
+    -webkit-user-select: none
+    -khtml-user-select: none
+    -moz-user-select: none
+    -ms-user-select: none
+    user-select: none
+
+  .button-scan-card:hover, .button-check-over:hover
+    cursor: pointer
+    text-shadow: 0 1px 1px #000
+    line-height: 40px
+    text-decoration: underline
+
+  .button-scan-card.active, .button-check-over.active,
+  .button-scan-card:active, .button-check-over:active
+    color: rgba(255, 255, 255, 0.95)
+    text-shadow: 0 -1px 1px #000
+    line-height: 40px
+    // text-decoration: underline
+
+  .button-scan-card
+    background-image: url(/images/button-yellow.png)
+
+  .button-check-over
+    background-image: url(/images/button-green.png)
+
+  &.small
+    background-image: url(/images/popover-small.png)
+    width: 180px
+    height: 90px
+    position: relative
+    top: -120px
+    left: -100px
+
+  &.large
+    background-image: url(/images/popover-large.png)
+    width: 180px
+    height: 162px
+    position: relative
+    top: -190px
+    left: -100px
