@@ -10,17 +10,22 @@ class @TransitCard
     $.each [@$lastCheckedIn, @$currentCarrier], ->
       $(this).css transition: "#{FLIP_DURATION / 1000}s"
 
-    @pubsub.subscribe '/callbacks/check_in', (data) ->
-      transit_card.animateCheckedInAt(data.checked_in_at)
-      transit_card.animateCurrentCarrier(data.current_carrier)
+    @pubsub.subscribe '/callbacks/check_in/*', (data) =>
+      # # Lookup location name by id
+      # $location = $("[data-location-id=#{data.last_carrier.id}]")
+      # @animateCheckedInAt($location.data('location-name'))
 
-    @pubsub.subscribe '/callbacks/check_out', (data) ->
-      transit_card.animateCheckedInAt('—')
-      transit_card.animateCurrentCarrier('—')
-      transit_card.animateBalance(data.balance)
+      # # Lookup carrier name by id
+      # $carrier = $("select[name=carrier] > [value=#{data.last_carrier.id}]:first")
+      # @animateCurrentCarrier($carrier.text())
+
+    @pubsub.subscribe '/callbacks/check_out/*', (data) =>
+      @animateCheckedInAt('—')
+      @animateCurrentCarrier('—')
+      @animateBalance(data.balance)
 
   getId: ->
-    @$elem.data('card-id')
+    @$elem.data('transit-card-id')
 
   setBalance: (balance) ->
     formattedBalance = parseFloat(balance).toFixed(2)

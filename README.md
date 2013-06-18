@@ -5,4 +5,4 @@ Project voor Verfication Engineering. Zie ook [thomasbrus/verification-engineeri
 ## How to run
 
     $ bundle install
-    $ rackup
+    $ bundle exec foreman start

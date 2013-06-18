@@ -1,5 +1,4 @@
 class @PopoverDialog
-  BUTTON_ACTIVE_TIMEOUT = 100
   SOUNDS =
     failure: AudioFX('/sounds/failure.mp3')
     check_in: AudioFX('/sounds/succesful-check-in.mp3')
@@ -16,13 +15,16 @@ class @PopoverDialog
     new DelayedButton(@$scanCardButton)
     new DelayedButton(@$checkOverButton)
 
-    @pubsub.subscribe '/callbacks/check_in', (data) ->
+    @pubsub.subscribe "/callbacks/check_in/#{@location.getId()}", (data) ->
+      console.log data
       SOUNDS.check_in.play()
 
-    @pubsub.subscribe '/callbacks/check_out', (data) ->
+    @pubsub.subscribe "/callbacks/check_out/#{@location.getId()}", (data) ->
+      console.log data
       SOUNDS.check_out.play()
 
-    @pubsub.subscribe '/callbacks/failure', (data) ->
+    @pubsub.subscribe "/callbacks/failure/#{@location.getId()}", (data) ->
+      console.log data
       SOUNDS.failure.play()
   
   scanCard: ->

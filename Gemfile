@@ -4,14 +4,13 @@ gem 'rack', '~> 1.5.2'
 gem 'sinatra', '~> 1.4.2'
 
 gem 'faye', git: 'git://github.com/thomasbrus/faye.git', ref: '4ed40971'
-
-gem 'thin', '~> 1.5.1'
+gem 'puma'
 
 gem 'sass', '~> 3.2.9'
 gem 'coffee-script', '~> 2.2.0'
 
 gem 'facets', '~> 2.9.3'
+gem 'eventmachine'
 
 gem 'foreman', '~> 0.63.0'
 
-gem 'puma'

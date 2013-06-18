@@ -18,4 +18,3 @@ class @Location
 
   getName: ->
     @$elem.data('location-name')
-
