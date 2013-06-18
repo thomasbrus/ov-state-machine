@@ -1,8 +1,8 @@
 class @PopoverDialog
   SOUNDS =
-    failure: AudioFX('/sounds/failure.mp3')
-    check_in: AudioFX('/sounds/succesful-check-in.mp3')
-    check_out: AudioFX('/sounds/succesful-check-out.mp3')
+    failure: AudioFX('/sounds/vendor/failure.mp3')
+    check_in: AudioFX('/sounds/vendor/succesful-check-in.mp3')
+    check_out: AudioFX('/sounds/vendor/succesful-check-out.mp3')
 
   constructor: (@$elem, @location, @transit_card, @pubsub)->
     @$scanCardButton = @$elem.find('.button-scan-card')
