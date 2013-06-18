@@ -21,7 +21,9 @@ module OVStateMachine
     end
 
     def publish_failure(location, card)
-      @pubsub.publish("/callbacks/failure/#{location.id}", {})
+      @pubsub.publish("/callbacks/failure/#{location.id}", {
+        balance: card.balance
+      })
     end
 
     private
@@ -59,8 +61,6 @@ module OVStateMachine
     rescue TransitCard::InvalidAction => e
       puts e.message
       publish_failure(location, card)
-    ensure
-      publish_success(:check_out, location, card)      
     end
   end
 end

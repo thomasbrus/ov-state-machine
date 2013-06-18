@@ -24,6 +24,9 @@ class @TransitCard
       @animateCurrentCarrier('—')
       @animateBalance(data.balance)
 
+    @pubsub.subscribe '/callbacks/failure/*', (data) =>
+      @animateBalance(data.balance)
+
   getId: ->
     @$elem.data('transit-card-id')
 
