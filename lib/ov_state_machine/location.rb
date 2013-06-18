@@ -1,7 +1,8 @@
-require 'facets/multiton'
-
 module OVStateMachine
-  class Location < Struct.new(:id)
-    include Multiton
+  class Location
+    include DataMapper::Resource
+
+    property :id,   Serial
+    property :name, String
   end
 end

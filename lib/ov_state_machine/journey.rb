@@ -1,7 +1,7 @@
 require 'set'
 
 module OVStateMachine
-  class Journey < Struct.new(:origin, :destination)  
+  module Journey
     PriceUnknown = Class.new(StandardError)
 
     PRICE_TABLE = {
@@ -12,7 +12,7 @@ module OVStateMachine
 
     private_constant :PRICE_TABLE
 
-    def calculate_price
+    def calculate_price(origin, destination)
       return 0.00 if origin == destination
 
       PRICE_TABLE.fetch(Set[origin.id, destination.id]) do

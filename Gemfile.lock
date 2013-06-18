@@ -20,6 +20,10 @@ GEM
       execjs
     coffee-script-source (1.6.2)
     cookiejar (0.3.0)
+    dm-core (1.2.1)
+      addressable (~> 2.3)
+    dm-yaml-adapter (1.2.0)
+      dm-core (~> 1.2.0)
     dotenv (0.7.0)
     em-http-request (1.0.3)
       addressable (>= 2.2.3)
@@ -32,7 +36,6 @@ GEM
     eventmachine (1.0.3)
     execjs (1.4.0)
       multi_json (~> 1.0)
-    facets (2.9.3)
     faye-websocket (0.6.1)
       eventmachine (>= 0.12.0)
       websocket-driver (>= 0.2.0)
@@ -60,11 +63,11 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-script (~> 2.2.0)
+  dm-yaml-adapter (~> 1.2.0)
   eventmachine
-  facets (~> 2.9.3)
   faye!
   foreman (~> 0.63.0)
-  puma
+  puma (~> 2.0.1)
   rack (~> 1.5.2)
   sass (~> 3.2.9)
   sinatra (~> 1.4.2)

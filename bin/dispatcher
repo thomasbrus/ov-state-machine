@@ -10,9 +10,17 @@ $stdout.sync = true
 
 EM.run do
   puts "Event Dispatcher starting..."
-  
+
   pubsub = Faye::Client.new('http://localhost:9191/pubsub')
   OVStateMachine::EventDispatcher.new(pubsub)
 
-  puts "Subscribed to http://localhost:9191/pubsub"  
+  # bayeux.bind(:handshake) do |client_id|
+  #   # Reserve an unique card
+  # end
+
+  # bayeux.bind(:disconnect) do |client_id|
+  #   # Destroy card
+  # end
+
+  puts "Subscribed to http://localhost:9191/pubsub"
 end

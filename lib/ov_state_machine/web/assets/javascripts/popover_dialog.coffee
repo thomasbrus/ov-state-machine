@@ -30,7 +30,6 @@ class @PopoverDialog
   scanCard: ->
     return false unless @$scanCardButton
     @pubsub.publish '/events/scan_card', {
-      card_id: @transit_card.getId(),
       carrier_id: @$selectedCarrier.val(),
       location_id: @location.getId()
     }
@@ -38,6 +37,5 @@ class @PopoverDialog
   checkOver: ->
     return false unless @$checkOverButton
     @pubsub.publish '/events/check_over', {
-      card_id: @transit_card.getId(),
       location_id: @location.getId()
     }
