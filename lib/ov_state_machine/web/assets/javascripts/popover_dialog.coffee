@@ -1,6 +1,6 @@
 class @PopoverDialog
   BUTTON_ACTIVE_TIMEOUT = 100
-  PULSE_ACTIVE_TIMEOUT = 4000
+  PULSE_ACTIVE_TIMEOUT = 1000
   SOUNDS =
     failure: AudioFX('/sounds/failure.mp3')
     check_in: AudioFX('/sounds/succesful-check-in.mp3')
@@ -15,18 +15,17 @@ class @PopoverDialog
 
     $.each [@$scanCardButton, @$checkOverButton], (_, elem) =>
       $(elem).click =>
+        $(elem).addClass('active')
+
         setTimeout((=>
           $(elem).removeClass('active')
-          # @$elem.hide()
         ), BUTTON_ACTIVE_TIMEOUT)
+        
+        $(elem).closest('.marker').addClass('pulse-success')
 
-        setTimeout((->
-          $(elem).closest('.marker').children('.pulse').removeClass('active-pulse')
-        ), PULSE_ACTIVE_TIMEOUT)
+    @$elem.closest('.marker').bind 'webkitAnimationEnd', ->
+      $(this).removeClass('pulse-success pulse-failure')
 
-        $(elem).addClass('active')
-        $(elem).closest('.marker').children('.pulse').addClass('active-pulse')
-  
   scanCard: ->
     return false unless @$scanCardButton
     console.log 'Scanning card...'
