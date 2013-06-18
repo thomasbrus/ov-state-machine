@@ -1,7 +1,7 @@
 class @SoundEffects  
-  FAILURE = AudioFX('/sounds/vendor/failure.mp3')
-  CHECK_IN = AudioFX('/sounds/vendor/succesful-check-in.mp3')
-  CHECK_OUT = AudioFX('/sounds/vendor/succesful-check-out.mp3')
+  FAILURE = AudioFX('/sounds/failure.mp3')
+  CHECK_IN = AudioFX('/sounds/succesful-check-in.mp3')
+  CHECK_OUT = AudioFX('/sounds/succesful-check-out.mp3')
 
   constructor: (@pubsub) ->
     @pubsub.subscribe "/callbacks/check_in/*", -> CHECK_IN.play()
