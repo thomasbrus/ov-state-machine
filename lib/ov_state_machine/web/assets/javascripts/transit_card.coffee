@@ -2,13 +2,30 @@ class @TransitCard
   DIGIT_ANIMATION_OPTIONS = duration: 500, easing: 'swing'
   FLIP_DURATION = 250
 
-  constructor: (@$elem) ->
+  constructor: (@$elem, @pubsub) ->
     @$digits = @$elem.find('.balance > span')
     @$lastCheckedIn = @$elem.find('.checked-in-at > p')
     @$currentCarrier = @$elem.find('.current-carrier > p')
 
     $.each [@$lastCheckedIn, @$currentCarrier], ->
       $(this).css transition: "#{FLIP_DURATION / 1000}s"
+
+    @pubsub.subscribe '/callbacks/check_in/*', (data) =>
+      # # Lookup location name by id
+      # $location = $("[data-location-id=#{data.last_carrier.id}]")
+      # @animateCheckedInAt($location.data('location-name'))
+
+      # # Lookup carrier name by id
+      # $carrier = $("select[name=carrier] > [value=#{data.last_carrier.id}]:first")
+      # @animateCurrentCarrier($carrier.text())
+
+    @pubsub.subscribe '/callbacks/check_out/*', (data) =>
+      @animateCheckedInAt('—')
+      @animateCurrentCarrier('—')
+      @animateBalance(data.balance)
+
+  getId: ->
+    @$elem.data('transit-card-id')
 
   setBalance: (balance) ->
     formattedBalance = parseFloat(balance).toFixed(2)
@@ -29,18 +46,18 @@ class @TransitCard
         step: (value) => @setBalance(value)
       }
 
-  setLastCheckedIn: (location) ->
+  setCheckedInAt: (location) ->
     @$lastCheckedIn.text(location)
   
-  getLastCheckedIn: ->
+  getCheckedInAt: ->
     location = @$lastCheckedIn.text()
   
-  animateLastCheckedIn: (location) ->
-    return if location == @getLastCheckedIn()
+  animateCheckedInAt: (location) ->
+    return if location == @getCheckedInAt()
 
     @$lastCheckedIn.addClass('flipped')
     setTimeout (=>
-      @setLastCheckedIn(location)  
+      @setCheckedInAt(location)  
       @$lastCheckedIn.removeClass('flipped')
     ), FLIP_DURATION
   

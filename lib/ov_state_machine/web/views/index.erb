@@ -9,8 +9,7 @@
   </section>
 </div>
 
-
-<div id="transit_card" data-card-id="100">
+<div id="transit_card" data-transit-card-id="100">
   <header>
     <h1>T.A. Brus</h1>
     <p class="balance">€<span>5,00</span></p>
@@ -29,14 +28,13 @@
 </div>
 
 <div id="map">
-
   <div class="location" data-location-id="50" data-location-name="Delden" id="railway-station-delden">
     <h2>Delden</h2>
     <div class="marker">
       <div class="pulse"></div>
       <section class="popover-dialog small">
         <select name="carrier">
-          <option>-- Kies een vervoerder --</option>
+          <option value="-1">-- Kies een vervoerder --</option>
           <option value="2" selected="selected">Syntus</option>
         </select>
         <div class="button-scan-card">
@@ -52,7 +50,7 @@
       <div class="pulse"></div>      
       <section class="popover-dialog large">
         <select name="carrier">
-          <option selected="selected">-- Kies een vervoerder --</option>
+          <option selected="selected" value="-1">-- Kies een vervoerder --</option>
           <option value="2">Syntus</option>
           <option value="1">NS</option>
         </select>
@@ -73,7 +71,7 @@
       <div class="pulse"></div>
       <section class="popover-dialog small">
         <select name="carrier">
-          <option>-- Kies een vervoerder --</option>
+          <option value="-1">-- Kies een vervoerder --</option>
           <option value="1" selected="selected">NS</option>
         </select>
         <div class="button-scan-card">

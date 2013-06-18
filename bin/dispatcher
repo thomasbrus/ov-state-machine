@@ -1,0 +1,11 @@
+#!/usr/env/ruby
+
+require 'faye'
+require 'eventmachine'
+
+require_relative '../lib/ov_state_machine'
+
+EM.run do
+  pubsub = Faye::Client.new('http://localhost:9191/pubsub')
+  OVStateMachine::EventDispatcher.new(pubsub)
+end

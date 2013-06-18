@@ -1,12 +1,12 @@
 class @Location
-  constructor: (@$elem, @transit_card) ->
+  constructor: (@$elem, @transit_card, @pubsub) ->
     @$marker = @$elem.find('.marker')
     @$popOver = @$elem.find('.popover-dialog')  
 
     @$marker.mouseenter => @showPopover()
-    # @$popOver.mouseleave => @hidePopover()
 
-    new PopoverDialog(@$popOver, @, @transit_card)
+    new PopoverDialog(@$popOver, @, @transit_card, @pubsub)
+    new PulsingMarker(@$marker)
 
   showPopover: (duration = 'fast') ->
     @$popOver.fadeIn(duration)
@@ -19,4 +19,3 @@ class @Location
 
   getName: ->
     @$elem.data('location-name')
-
