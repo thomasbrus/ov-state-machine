@@ -1,9 +1,4 @@
 class @PopoverDialog
-  SOUNDS =
-    failure: AudioFX('/sounds/vendor/failure.mp3')
-    check_in: AudioFX('/sounds/vendor/succesful-check-in.mp3')
-    check_out: AudioFX('/sounds/vendor/succesful-check-out.mp3')
-
   constructor: (@$elem, @location, @transit_card, @pubsub)->
     @$scanCardButton = @$elem.find('.button-scan-card')
     @$checkOverButton = @$elem.find('.button-check-over')
@@ -14,18 +9,6 @@ class @PopoverDialog
 
     new DelayedButton(@$scanCardButton)
     new DelayedButton(@$checkOverButton)
-
-    @pubsub.subscribe "/callbacks/check_in/#{@location.getId()}", (data) =>
-      @location.$marker.addClass('pulse-success')
-      SOUNDS.check_in.play()
-
-    @pubsub.subscribe "/callbacks/check_out/#{@location.getId()}", (data) =>
-      @location.$marker.addClass('pulse-success')
-      SOUNDS.check_out.play()
-
-    @pubsub.subscribe "/callbacks/failure/#{@location.getId()}", (data) =>
-      @location.$marker.addClass('pulse-failure')
-      SOUNDS.failure.play()
   
   scanCard: ->
     return false unless @$scanCardButton
