@@ -6,6 +6,7 @@ class @Location
     @$marker.mouseenter => @showPopover()
 
     new PopoverDialog(@$popOver, @, @transit_card, @pubsub)
+    new PulsingMarker(@$marker)
 
   showPopover: (duration = 'fast') ->
     @$popOver.fadeIn(duration)

@@ -15,16 +15,16 @@ class @PopoverDialog
     new DelayedButton(@$scanCardButton)
     new DelayedButton(@$checkOverButton)
 
-    @pubsub.subscribe "/callbacks/check_in/#{@location.getId()}", (data) ->
-      console.log data
+    @pubsub.subscribe "/callbacks/check_in/#{@location.getId()}", (data) =>
+      @location.$marker.addClass('pulse-success')
       SOUNDS.check_in.play()
 
-    @pubsub.subscribe "/callbacks/check_out/#{@location.getId()}", (data) ->
-      console.log data
+    @pubsub.subscribe "/callbacks/check_out/#{@location.getId()}", (data) =>
+      @location.$marker.addClass('pulse-success')
       SOUNDS.check_out.play()
 
-    @pubsub.subscribe "/callbacks/failure/#{@location.getId()}", (data) ->
-      console.log data
+    @pubsub.subscribe "/callbacks/failure/#{@location.getId()}", (data) =>
+      @location.$marker.addClass('pulse-failure')
       SOUNDS.failure.play()
   
   scanCard: ->
