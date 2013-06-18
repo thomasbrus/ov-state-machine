@@ -5,7 +5,14 @@ require 'eventmachine'
 
 require_relative '../lib/ov_state_machine'
 
+# Instantly flush buffer
+$stdout.sync = true
+
 EM.run do
+  puts "Event Dispatcher starting..."
+  
   pubsub = Faye::Client.new('http://localhost:9191/pubsub')
   OVStateMachine::EventDispatcher.new(pubsub)
+
+  puts "Subscribed to http://localhost:9191/pubsub"  
 end
