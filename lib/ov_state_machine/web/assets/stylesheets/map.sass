@@ -25,12 +25,38 @@
       height: 40px
       cursor: pointer
       background: url(/images/marker.png) no-repeat center center
-      
-    .marker.failure
-      background-image: url(/images/marker-failure.png)    
-      // #e40549
-      // #9c0331
+      display: block
+      position: absolute
 
+      .pulse
+        display: none
+        position: absolute
+        left: -7px
+        top: -7px
+        width: 54px
+        height: 54px
+        border-radius: 30px
+
+      &.pulse-success
+        background-image: url(/images/marker-success.png)
+
+      &.pulse-failure
+        background-image: url(/images/marker-failure.png)
+
+      &.pulse-success > .pulse, 
+      &.pulse-failure > .pulse
+        display: block
+        -webkit-animation: pulse 0.6s ease-out 1
+        -webkit-animation-fill-mode: forwards
+        border-radius: 30px
+
+      &.pulse-success > .pulse
+        border: 1px solid #369c03
+        box-shadow: inset #4fe305 0 0 20px 0px
+
+      &.pulse-failure > .pulse
+        border: 1px solid #9c0303
+        box-shadow: inset #e30505 0 0 20px 0px
 
 #railway-station-delden
   left: 117px
@@ -56,3 +82,16 @@
     left: 52px
     top: 7px
     max-width: 100px
+
+
+@-webkit-keyframes pulse
+  0%
+    -webkit-transform: scale(0.2)
+    opacity: .8
+  50%
+    opacity: 1
+  85%
+    -webkit-transform: scale(1)
+  100%
+    opacity: 0
+    -webkit-transform: scale(1)
