@@ -39,7 +39,15 @@ module OVStateMachine
       end
 
       check_out(location, @last_carrier)
-      check_in(location, Carrier.get(0))
+
+      begin
+        check_in(location, Carrier.get(0))
+      rescue InvalidAction
+      ensure
+        # Temporary hack to make sure the card is always checked in eventually
+        # This should be fixed in the mCRL2 specification though.
+        @last_location, @last_carrier = location, Carrier.get(0)
+      end
     end
 
     def check_out(location, carrier)
