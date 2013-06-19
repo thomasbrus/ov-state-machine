@@ -1,5 +1,3 @@
-require 'eventmachine'
-
 module OVStateMachine
   class EventDispatcher
     def initialize(pubsub)
@@ -28,7 +26,7 @@ module OVStateMachine
     end
 
     def publish_failure(location, balance)
-      @pubsub.publish("/callbacks/failure/#{location.id}", {
+      @pubsub.publish("/callbacks/failure/#{location.id rescue -1}", {
         balance: balance
       })
     end
@@ -40,8 +38,7 @@ module OVStateMachine
       location = Location.get!(event_data['location_id'])
       carrier = Carrier.get!(event_data['carrier_id'])
       handle_scan_card(card, location, carrier)
-    rescue DataMapper::ObjectNotFoundError => e
-      puts e.message
+    rescue DataMapper::ObjectNotFoundError
       publish_failure(location, card.balance)
     end
 
@@ -49,8 +46,7 @@ module OVStateMachine
       card = TransitCard.instance
       location = Location.get!(event_data['location_id'])
       handle_check_over(card, location)
-    rescue DataMapper::ObjectNotFoundError => e
-      puts e.message
+    rescue DataMapper::ObjectNotFoundError
       publish_failure(location, card.balance)
     end
 
@@ -62,16 +58,14 @@ module OVStateMachine
         card.check_in(location, carrier)
         publish_check_in(location, carrier)
       end
-    rescue TransitCard::InvalidAction => e
-      puts e.message
+    rescue TransitCard::InvalidAction
       publish_failure(location, card.balance)
     end
 
     def handle_check_over(card, location)
       card.check_over(location)
       publish_check_in(location, Carrier.get(0))
-    rescue TransitCard::InvalidAction => e
-      puts e.message
+    rescue TransitCard::InvalidAction
       publish_failure(location, card.balance)
     end
   end
