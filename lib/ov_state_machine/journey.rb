@@ -6,8 +6,7 @@ module OVStateMachine
 
     PRICE_TABLE = {
       Set[50, 51] => 1.00,
-      Set[51, 52] => 2.00,
-      Set[50, 52] => 3.00
+      Set[51, 52] => 2.00
     }.freeze
 
     private_constant :PRICE_TABLE
