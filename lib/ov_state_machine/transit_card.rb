@@ -15,7 +15,7 @@ module OVStateMachine
     end
 
     def id
-      1 # For now, there is only 1 card
+      100 # For now, there is only 1 card
     end
 
     def checked_in?

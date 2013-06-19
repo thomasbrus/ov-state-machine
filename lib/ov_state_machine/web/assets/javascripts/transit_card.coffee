@@ -10,16 +10,16 @@ class @TransitCard
     $.each [@$lastCheckedIn, @$currentCarrier], ->
       $(this).css transition: "#{FLIP_DURATION / 1000}s"
 
-    @pubsub.subscribe '/callbacks/check_in/*', (data) =>
+    @pubsub.subscribe '/callbacks/check_in', (data) =>
       @animateCheckedInAt(data.location_name)
       @animateCurrentCarrier(data.carrier_name)
 
-    @pubsub.subscribe '/callbacks/check_out/*', (data) =>
+    @pubsub.subscribe '/callbacks/check_out', (data) =>
       @animateCheckedInAt('—')
       @animateCurrentCarrier('—')
       @animateBalance(data.balance)
 
-    @pubsub.subscribe '/callbacks/failure/*', (data) =>
+    @pubsub.subscribe '/callbacks/failure', (data) =>
       @animateBalance(data.balance)
 
   setBalance: (balance) ->
