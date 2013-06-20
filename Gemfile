@@ -2,6 +2,7 @@ source "https://rubygems.org"
 
 gem 'rack', '~> 1.5.2'
 gem 'sinatra', '~> 1.4.2'
+gem 'slim', '~> 2.0.0'
 
 gem 'faye', git: 'git://github.com/thomasbrus/faye.git', ref: '4ed40971'
 gem 'puma', '~> 2.0.1'

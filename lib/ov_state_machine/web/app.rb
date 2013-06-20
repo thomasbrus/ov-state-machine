@@ -1,6 +1,7 @@
 require 'sinatra/base'
 require 'coffee-script'
 require 'sass'
+require 'slim'
 
 module OVStateMachine
   module Web
@@ -19,8 +20,12 @@ module OVStateMachine
 
       use AssetEngine
 
+      configure do
+        Slim::Engine.default_options[:pretty] = true
+      end
+
       get '/' do
-        erb :index
+        slim :index
       end
     end
   end

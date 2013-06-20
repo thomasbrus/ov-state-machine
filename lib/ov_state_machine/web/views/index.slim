@@ -1,0 +1,45 @@
+div#legend
+  header
+    h1 Legenda
+    hr
+  section.descriptions
+    label.syntus Syntus
+    label.ns NS
+
+div#transit_card
+  header
+    h1 T.A. Brus
+    p.balance
+      | €<span>5,00</span>
+
+  hr
+  section.info
+    div.checked-in-at
+      h3 Laatst ingecheckt in:
+      p —
+    div.current-carrier
+      h3 Ingecheckt bij:
+      p —
+
+div#map
+
+  == slim :'partials/location', locals: { id: 50, name: 'Delden', popover_size: :small }
+    select name="carrier"
+      option[value="-1"] -- Kies een vervoerder --
+      option[value="2" selected="selected"] Syntus
+    div.button-scan-card Scan kaart
+
+  == slim :'partials/location', locals: { id: 51, name: 'Hengelo', popover_size: :large }
+    select name="carrier"
+      option[value="-1" selected="selected"] -- Kies een vervoerder --
+      option[value="2"] Syntus</option>
+      option[value="1"] NS
+    div.button-scan-card Scan kaart
+    hr
+    div.button-check-over Check over
+
+  == slim :'partials/location', locals: { id: 52, name: 'Enschede-Drienerlo', popover_size: :small }
+    select name="carrier"
+      option[value="-1"] -- Kies een vervoerder --
+      option[value="2" selected="selected"] Syntus
+    div.button-scan-card Scan kaart

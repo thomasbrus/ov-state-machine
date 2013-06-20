@@ -1,0 +1,6 @@
+div.location data-location-id="#{id}" id="railway-station-#{name.downcase}"
+  h2 = name
+  div.marker
+    div.pulse
+    section[class="popover-dialog #{popover_size}"]
+      == yield
