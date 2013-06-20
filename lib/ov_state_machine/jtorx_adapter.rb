@@ -2,21 +2,22 @@ require 'eventmachine'
 
 module OVStateMachine
   class JTorXAdapter < EM::Connection
-    PUBSUB = Faye::Client.new('http://localhost:9191/pubsub')
     STATUS_CODES = { checked_in: 1, checked_out: 0, failure: -1 }.freeze
 
-    def initialize(*args)
+    def initialize(pubsub)
+      @pubsub = pubsub
+
       STATUS_CODES.each do |callback, status_code|
-        PUBSUB.subscribe "/callbacks/#{callback}" do |data|
+        @pubsub.subscribe "/callbacks/#{callback}" do |data|
           balance = data["balance"].to_i
           report_reader_status(status_code, balance)
         end
       end
 
-      PUBSUB.subscribe "/callbacks/checked_over" do |data|
+      @pubsub.subscribe "/callbacks/checked_over" do |data|
         balance = data["balance"].to_i
         status_code = determine_checked_over_status_code(data)
-        report_reader_status(status_code, balance)          
+        report_reader_status(status_code, balance)
       end
 
       super
@@ -42,9 +43,9 @@ module OVStateMachine
 
     def handle_show(card_id, carrier_id, location_id)
       if carrier_id.to_i == 0
-        PUBSUB.publish('/events/check_over', location_id: location_id)
+        @pubsub.publish('/events/check_over', location_id: location_id)
       else
-        PUBSUB.publish('/events/scan_card', {
+        @pubsub.publish('/events/scan_card', {
           carrier_id: carrier_id,
           location_id: location_id
         })
