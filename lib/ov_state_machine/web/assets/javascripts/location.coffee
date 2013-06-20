@@ -1,11 +1,11 @@
 class @Location
-  constructor: (@$elem, @transit_card, @pubsub) ->
+  constructor: (@$elem, @pubsub) ->
     @$marker = @$elem.find('.marker')
     @$popOver = @$elem.find('.popover-dialog')
 
     @$marker.mouseenter => @showPopover()
 
-    new PopoverDialog(@$popOver, @, @transit_card, @pubsub)
+    new PopoverDialog(@$popOver, @, @pubsub)
     new PulsingMarker(@$marker)
 
     @pubsub.subscribe "/callbacks/checked_in", (data) =>

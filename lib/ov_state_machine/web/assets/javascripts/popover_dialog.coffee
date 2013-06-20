@@ -1,5 +1,5 @@
 class @PopoverDialog
-  constructor: (@$elem, @location, @transit_card, @pubsub)->
+  constructor: (@$elem, @location, @pubsub)->
     @$scanCardButton = @$elem.find('.button-scan-card')
     @$checkOverButton = @$elem.find('.button-check-over')
     @$selectedCarrier = @$elem.find('select[name=carrier]')

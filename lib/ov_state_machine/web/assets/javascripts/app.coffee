@@ -3,9 +3,9 @@ $ ->
   transit_card = new TransitCard($('#transit_card'), pubsub)
 
   locations = [
-    new Location($('#railway-station-delden'), transit_card, pubsub)
-    new Location($('#railway-station-hengelo'), transit_card, pubsub)
-    new Location($('#railway-station-enschede-drienerlo'), transit_card, pubsub)
+    new Location($('#railway-station-delden'), pubsub)
+    new Location($('#railway-station-hengelo'), pubsub)
+    new Location($('#railway-station-enschede-drienerlo'), pubsub)
   ]
 
   new SoundEffects(pubsub)
