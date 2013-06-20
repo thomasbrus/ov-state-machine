@@ -12,6 +12,10 @@ class @Location
       if data.location_id == @getId()
         @$marker.addClass('pulse-success')
 
+    @pubsub.subscribe "/callbacks/check_over", (data) =>
+      if data.location_id == @getId()
+        @$marker.addClass('pulse-success')
+
     @pubsub.subscribe "/callbacks/check_out", (data) =>
       if data.location_id == @getId()
         @$marker.addClass('pulse-success')

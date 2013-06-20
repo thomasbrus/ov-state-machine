@@ -15,9 +15,17 @@ module OVStateMachine
     def publish_check_in(card, location, carrier)
       @pubsub.publish("/callbacks/check_in", {
         location_id: location.id,
-        balance: card.balance,
         location_name: location.name,
         carrier_name: carrier.name
+      })
+    end
+
+    def publish_check_over(card, location)
+      @pubsub.publish("/callbacks/check_over", {
+        location_id: location.id,
+        balance: card.balance,
+        location_name: location.name,
+        carrier_name: Carrier.get(0).name
       })
     end
 
@@ -71,7 +79,7 @@ module OVStateMachine
 
     def handle_check_over(card, location)
       card.check_over(location)
-      publish_check_in(card, location, Carrier.get(0))
+      publish_check_over(card, location)
       puts "Checked over at #{location.name}"
     rescue TransitCard::InvalidAction => e
       puts e.message
