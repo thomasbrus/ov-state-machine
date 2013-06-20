@@ -8,15 +8,15 @@ class @Location
     new PopoverDialog(@$popOver, @, @transit_card, @pubsub)
     new PulsingMarker(@$marker)
 
-    @pubsub.subscribe "/callbacks/check_in", (data) =>
+    @pubsub.subscribe "/callbacks/checked_in", (data) =>
       if data.location_id == @getId()
         @$marker.addClass('pulse-success')
 
-    @pubsub.subscribe "/callbacks/check_over", (data) =>
+    @pubsub.subscribe "/callbacks/checked_over", (data) =>
       if data.location_id == @getId()
         @$marker.addClass('pulse-success')
 
-    @pubsub.subscribe "/callbacks/check_out", (data) =>
+    @pubsub.subscribe "/callbacks/checked_out", (data) =>
       if data.location_id == @getId()
         @$marker.addClass('pulse-success')
 

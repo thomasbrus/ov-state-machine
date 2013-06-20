@@ -13,7 +13,7 @@ module OVStateMachine
     end
 
     def publish_check_in(card, location, carrier)
-      @pubsub.publish("/callbacks/check_in", {
+      @pubsub.publish("/callbacks/checked_in", {
         location_id: location.id,
         location_name: location.name,
         carrier_name: carrier.name
@@ -21,7 +21,7 @@ module OVStateMachine
     end
 
     def publish_check_over(card, location)
-      @pubsub.publish("/callbacks/check_over", {
+      @pubsub.publish("/callbacks/checked_over", {
         location_id: location.id,
         balance: card.balance,
         location_name: location.name,
@@ -30,7 +30,7 @@ module OVStateMachine
     end
 
     def publish_check_out(card, location)
-      @pubsub.publish("/callbacks/check_out", {
+      @pubsub.publish("/callbacks/checked_out", {
         location_id: location.id,
         balance: card.balance
       })

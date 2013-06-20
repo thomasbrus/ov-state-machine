@@ -3,7 +3,7 @@ require 'eventmachine'
 module OVStateMachine
   class JTorXAdapter < EM::Connection
     PUBSUB = Faye::Client.new('http://localhost:9191/pubsub')
-    STATUS_CODES = { check_in: 1, check_over: 1, check_out: 0, failure: -1 }.freeze
+    STATUS_CODES = { checked_in: 1, checked_over: 1, checked_out: 0, failure: -1 }.freeze
 
     def initialize(*args)
       STATUS_CODES.each do |callback, status_code|
