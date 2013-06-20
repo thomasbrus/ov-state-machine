@@ -25,7 +25,8 @@ module OVStateMachine
         location_id: location.id,
         balance: card.balance,
         location_name: location.name,
-        carrier_name: Carrier.get(0).name
+        carrier_name: Carrier.get(0).name,
+        is_checked_in: card.checked_in?
       })
     end
 

@@ -15,8 +15,13 @@ class @TransitCard
       @animateCurrentCarrier(data.carrier_name)
 
     @pubsub.subscribe '/callbacks/checked_over', (data) =>
-      @animateCheckedInAt(data.location_name)
-      @animateCurrentCarrier(data.carrier_name)
+      if data.is_checked_in
+        @animateCheckedInAt(data.location_name)
+        @animateCurrentCarrier(data.carrier_name)
+      else
+        @animateCheckedInAt('—')
+        @animateCurrentCarrier('—')
+
       @animateBalance(data.balance)
 
     @pubsub.subscribe '/callbacks/checked_out', (data) =>
