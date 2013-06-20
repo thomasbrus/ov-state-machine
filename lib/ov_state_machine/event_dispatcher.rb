@@ -15,6 +15,7 @@ module OVStateMachine
     def publish_check_in(card, location, carrier)
       @pubsub.publish("/callbacks/checked_in", {
         location_id: location.id,
+        balance: card.balance,
         location_name: location.name,
         carrier_name: carrier.name
       })
