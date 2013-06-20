@@ -19,5 +19,3 @@ $ ->
   $.each locations, (_, location) ->
     this.$marker.mouseenter ->
       $.each locations, -> this.hidePopover() unless this == location
-
-  

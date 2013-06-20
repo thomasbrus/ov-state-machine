@@ -58,18 +58,23 @@ module OVStateMachine
       if card.checked_in?
         card.check_out(location, carrier)
         publish_check_out(card, location)
+        puts "Checked out at #{location.name}, using #{carrier.name}"
       else
         card.check_in(location, carrier)
         publish_check_in(card, location, carrier)
+        puts "Checked in at #{location.name}, using #{carrier.name}"
       end
-    rescue TransitCard::InvalidAction
+    rescue TransitCard::InvalidAction => e
+      puts e.message
       publish_failure(card, location)
     end
 
     def handle_check_over(card, location)
       card.check_over(location)
       publish_check_in(card, location, Carrier.get(0))
-    rescue TransitCard::InvalidAction
+      puts "Checked over at #{location.name}"
+    rescue TransitCard::InvalidAction => e
+      puts e.message
       publish_failure(card, location)
     end
   end
