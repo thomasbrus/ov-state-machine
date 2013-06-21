@@ -24,11 +24,13 @@ class @Location
       if data.location_id == @getId()
         @$marker.addClass('pulse-failure')
 
-  showPopover: (duration = 'fast') ->
-    @$popOver.fadeIn(duration)
+  showPopover: (options) ->
+    options = $.extend { duration: 'fast' }, options
+    @$popOver.fadeIn(options['duration'])
 
-  hidePopover: ->
-    @$popOver.hide()
+  hidePopover: (options) ->
+    options = $.extend { duration: 0 }, options
+    @$popOver.fadeOut(options['duration'])
 
   getId: ->
     @$elem.data('location-id')
