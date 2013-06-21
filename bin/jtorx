@@ -6,11 +6,18 @@ require 'eventmachine'
 
 require_relative '../lib/ov_state_machine'
 
+# Instantly flush buffer
+$stdout.sync = true
+
 EventMachine.run do
+  puts "JTorx Adapter starting..."
+
   # Exit gracefully using ctrl-c
   Signal.trap('INT')  { EventMachine.stop }
   Signal.trap('TERM') { EventMachine.stop }
 
   pubsub = Faye::Client.new('http://localhost:9191/pubsub')
   EventMachine.start_server("0.0.0.0", 9090, OVStateMachine::JTorXAdapter, pubsub)
+
+  puts "Listening on tcp://0.0.0.0:9090"
 end

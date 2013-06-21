@@ -18,5 +18,5 @@ EventMachine.run do
   pubsub = Faye::Client.new('http://localhost:9191/pubsub')
   OVStateMachine::EventDispatcher.new(pubsub)
 
-  puts "Subscribed to http://localhost:9191/pubsub"
+  puts "Subscribed to http://0.0.0.0:9191/pubsub"
 end
