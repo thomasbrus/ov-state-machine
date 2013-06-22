@@ -2,11 +2,11 @@ class @DelayedButton
   DEACTIVATE_DELAY = 100
 
   constructor: (@$elem) ->
-    @$elem.click => @activateButton()
-    @$elem.click => setTimeout((=> @deactivateButton()), DEACTIVATE_DELAY)
+    @$elem.click => @activate()
+    @$elem.click => setTimeout((=> @deactivate()), DEACTIVATE_DELAY)
 
-  activateButton: ->
+  activate: ->
     @$elem.addClass('active')
 
-  deactivateButton: ->
+  deactivate: ->
     @$elem.removeClass('active')
