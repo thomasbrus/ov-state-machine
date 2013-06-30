@@ -1,7 +1,7 @@
 require 'eventmachine'
 
 module OVStateMachine
-  class JTorXAdapter < EM::Connection
+  class JTorXClient < EM::Connection
     STATUS_CODES = { checked_in: 1, checked_out: 0, failure: -1 }.freeze
 
     def initialize(pubsub)
